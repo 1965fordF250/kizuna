@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="en" data-saved-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Kizuna</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"%3E%3Cdefs%3E%3ClinearGradient id="t" x1="0" y1="0" x2="0" y2="1"%3E%3Cstop offset="0" stop-color="%2333353b"/%3E%3Cstop offset="1" stop-color="%23121316"/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x="40" y="40" width="944" height="944" rx="220" fill="url%28%23t%29"/%3E%3Cpath d="M488 540C455 640 410 735 350 835M512 505C430 380 250 300 214 420C182 530 360 590 512 525" fill="none" stroke="%23fff" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/%3E%3Cpath d="M536 540C569 640 614 735 674 835M512 505C594 380 774 300 810 420C842 530 664 590 512 525" fill="none" stroke="%23e8413a" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/%3E%3Crect x="452" y="452" width="120" height="132" rx="44" fill="%23fff" stroke="%23121316" stroke-width="14"/%3E%3Cpath d="M478 500H546M478 538H546" stroke="%23e8413a" stroke-width="12" stroke-linecap="round"/%3E%3C/svg%3E">
+<script>
+  // Apply the saved theme before first paint (no flash). The app fills in data-saved-theme
+  // from its settings file (the page's address changes every launch, so browser storage
+  // can't remember it). Default: follow the system.
+  (function () {
+    var t = document.documentElement.getAttribute("data-saved-theme");
+    if (t !== "light" && t !== "dark" && t !== "kon" && t !== "urushi") {
+      t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+<style>
+/* ------------------------------------------------------------------ themes */
+:root, [data-theme="light"] {
+  --bg: #f4f5f7; --card: #ffffff; --raise: #fbfbfc; --text: #17181b; --muted: #5d626c;
+  --line: #e2e4e9; --line-strong: #cfd3da; --input: #f6f7f9;
+  --accent: #0a62cf; --accent-soft: #e7f0fc; --btn: #0a62cf; --btn-hover: #0855b4; --btn-text: #ffffff;
+  --chip: #f0f2f5; --chip-on: #e1ecfb; --chip-on-line: #93bbf0;
+  --ok: #18794a; --warn: #9a5800; --bad: #c12a1f; --bad-soft: #fdecea;
+  --focus: rgba(10, 98, 207, .35); --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 4px 16px rgba(16, 24, 40, .05);
+  --logo-ring: transparent;
+  --bw: 1px; --radius: 14px;
+  color-scheme: light;
+}
+/* Dark: near-black with the logo's red */
+[data-theme="dark"] {
+  --bg: #0c0c0d; --card: #161618; --raise: #1d1d20; --text: #f3f3f4; --muted: #a9aab0;
+  --line: #2a2a2e; --line-strong: #3d3d43; --input: #101012;
+  --accent: #ff6a5f; --accent-soft: #2b1312; --btn: #c9302a; --btn-hover: #b0261f; --btn-text: #ffffff;
+  --chip: #212124; --chip-on: #3a1614; --chip-on-line: #b33a31;
+  --ok: #4fcf8a; --warn: #f2ac4b; --bad: #ffa39b; --bad-soft: #3a1513;
+  --focus: rgba(255, 106, 95, .45); --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  --logo-ring: rgba(255, 255, 255, .16);
+  --bw: 1px; --radius: 14px;
+  color-scheme: dark;
+}
+/* Kon (紺, Japanese for navy blue): high contrast, navy and bright blue */
+[data-theme="kon"] {
+  --logo-ring: rgba(255, 255, 255, .45);
+  --bg: #001a47; --card: #002766; --raise: #00317d; --text: #ffffff; --muted: #d6e4ff;
+  --line: #4f86e8; --line-strong: #8cb8ff; --input: #001a47;
+  --accent: #8fd0ff; --accent-soft: #00418f; --btn: #8fd0ff; --btn-hover: #b5e0ff; --btn-text: #001a47;
+  --chip: #00317d; --chip-on: #0057c8; --chip-on-line: #b5e0ff;
+  --ok: #7dffb3; --warn: #ffd166; --bad: #ff9c9c; --bad-soft: #4a1030;
+  --focus: rgba(255, 255, 255, .85); --shadow: none;
+  --bw: 2px; --radius: 14px;
+  color-scheme: dark;
+}
+/* Urushi (漆, Japanese lacquerware): high contrast, black and vermilion like the logo */
+[data-theme="urushi"] {
+  --logo-ring: rgba(255, 255, 255, .5);
+  --bg: #000000; --card: #0e0e0e; --raise: #181818; --text: #ffffff; --muted: #ececec;
+  --line: #ff5248; --line-strong: #ff9a92; --input: #000000;
+  --accent: #ff7a70; --accent-soft: #5a100c; --btn: #ff5248; --btn-hover: #ff8178; --btn-text: #000000;
+  --chip: #181818; --chip-on: #7a1510; --chip-on-line: #ffb0a9;
+  --ok: #7dffb3; --warn: #ffd166; --bad: #ffb0a9; --bad-soft: #4a0f0c;
+  --focus: rgba(255, 255, 255, .9); --shadow: none;
+  --bw: 2px; --radius: 14px;
+  color-scheme: dark;
+}
+
+/* ------------------------------------------------------------------ base */
+* { box-sizing: border-box; }
+html, body { background: var(--bg); }
+body { margin: 0; color: var(--text);
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased; transition: background-color .25s ease, color .25s ease; }
+main { max-width: 1060px; margin: 0 auto; padding: 26px 20px 56px; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 8px; }
+.muted { color: var(--muted); }
+.hidden { display: none !important; }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+.reveal { animation: rise .28s ease both; }
+.spinner { display: inline-block; width: 13px; height: 13px; border-radius: 50%; vertical-align: -2px;
+  border: 2px solid currentColor; border-right-color: transparent; animation: spin .8s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important;
+    transition-duration: .001s !important; }
+}
+
+/* ------------------------------------------------------------------ header */
+header { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+.logo { width: 34px; height: 34px; flex: none; }
+h1 { font-size: 21px; margin: 0; letter-spacing: -.015em; font-weight: 700; }
+header h1 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size: 26px; letter-spacing: 0; }
+.head-tools { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+.lede { color: var(--muted); margin: 6px 0 22px; max-width: 760px; }
+
+.segmented { display: inline-flex; padding: 3px; gap: 2px; border-radius: 10px; background: var(--chip);
+  border: var(--bw) solid var(--line); }
+.segmented button { border: 0; background: transparent; color: var(--muted); padding: 5px 11px; border-radius: 7px;
+  font-size: 12.5px; font-weight: 600; display: inline-flex; gap: 6px; align-items: center; }
+.segmented button:hover { color: var(--text); background: transparent; }
+.segmented button[aria-pressed="true"] { background: var(--card); color: var(--text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .12); }
+[data-theme="kon"] .segmented button[aria-pressed="true"],
+[data-theme="urushi"] .segmented button[aria-pressed="true"] { background: var(--btn); color: var(--btn-text); }
+.segmented svg { width: 14px; height: 14px; }
+
+/* ------------------------------------------------------------------ controls */
+button { font: inherit; border-radius: 9px; border: var(--bw) solid var(--line-strong); background: var(--card);
+  color: var(--text); padding: 7px 13px; cursor: pointer; font-weight: 500;
+  transition: background-color .15s, border-color .15s, color .15s, transform .08s, box-shadow .15s; }
+button:hover { border-color: var(--muted); background: var(--raise); }
+button:active { transform: translateY(1px); }
+button:disabled { opacity: .5; cursor: default; transform: none; }
+button.primary { background: var(--btn); border-color: var(--btn); color: var(--btn-text); font-weight: 650;
+  padding: 11px 26px; font-size: 15px; display: inline-flex; gap: 9px; align-items: center; }
+button.primary:hover:not(:disabled) { background: var(--btn-hover); border-color: var(--btn-hover); }
+button.link { border: 0; background: none; color: var(--accent); padding: 2px 6px; font-size: 12.5px; font-weight: 600; }
+button.link:hover { text-decoration: underline; background: none; }
+input[type="checkbox"] { accent-color: var(--btn); width: 16px; height: 16px; margin: 0; cursor: pointer; flex: none; }
+input[type="text"] { font: inherit; font-size: 13px; padding: 8px 11px; border-radius: 9px; width: 100%; min-width: 0;
+  border: var(--bw) solid var(--line-strong); background: var(--input); color: var(--text);
+  transition: border-color .15s, box-shadow .15s; }
+input[type="text"]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--focus); }
+
+/* ------------------------------------------------------------------ cards */
+.card { background: var(--card); border: var(--bw) solid var(--line); border-radius: var(--radius); padding: 18px;
+  box-shadow: var(--shadow); min-width: 0; transition: background-color .25s, border-color .25s; }
+.folders { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 780px) { .folders { grid-template-columns: 1fr; } header { flex-wrap: wrap; } }
+.card-title { display: flex; align-items: center; gap: 9px; margin: 0 0 12px; font-size: 15px; font-weight: 650; }
+.badge { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 7px;
+  background: var(--accent-soft); color: var(--accent); font-size: 12.5px; font-weight: 800; }
+.role { margin-left: auto; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 99px;
+  background: var(--chip); color: var(--muted); transition: background-color .2s, color .2s; }
+.role.video { background: var(--accent-soft); color: var(--accent); }
+.pathrow { display: flex; gap: 8px; }
+.pathrow button { flex: none; }
+.meta { color: var(--muted); font-size: 12.5px; margin: 9px 0 2px; min-height: 19px; display: flex; gap: 7px; align-items: center; }
+.meta.err { color: var(--bad); }
+.empty-card { border: var(--bw) dashed var(--line-strong); border-radius: 11px; padding: 22px 14px; margin-top: 12px;
+  text-align: center; color: var(--muted); font-size: 13px; }
+.cat { border-top: var(--bw) solid var(--line); padding: 12px 0 4px; margin-top: 12px; }
+.cat-head { display: flex; align-items: center; gap: 9px; font-weight: 650; }
+.cat-head label { display: flex; align-items: center; gap: 9px; cursor: pointer; }
+.cat-head .tools { margin-left: auto; font-weight: 400; }
+.cat-note { color: var(--muted); font-size: 12.5px; margin: 3px 0 0 25px; }
+.chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0 2px 25px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; padding: 5px 11px 5px 8px; border-radius: 99px;
+  background: var(--chip); border: var(--bw) solid transparent; cursor: pointer; font-size: 13px; user-select: none;
+  max-width: 100%; transition: background-color .15s, border-color .15s; }
+.chip:hover { border-color: var(--line-strong); }
+.chip.on { background: var(--chip-on); border-color: var(--chip-on-line); }
+.chip .sub { color: var(--muted); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 210px; }
+.chip input { width: 14px; height: 14px; }
+.none-note { color: var(--muted); font-size: 12.5px; margin: 4px 0 0 25px; }
+
+section.block { margin-top: 16px; }
+.block h3 { font-size: 14.5px; margin: 0 0 10px; font-weight: 650; }
+details > summary { cursor: pointer; font-weight: 650; list-style: none; display: flex; align-items: center; gap: 8px; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary .chev { width: 16px; height: 16px; transition: transform .2s ease; color: var(--muted); }
+details[open] > summary .chev { transform: rotate(90deg); }
+details > summary .muted { font-weight: 400; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 12px; table-layout: fixed; }
+td, th { text-align: left; padding: 6px 7px; border-bottom: var(--bw) solid var(--line); overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; position: sticky; top: 0; background: var(--card); }
+tr:hover td { background: var(--raise); }
+td.missing { color: var(--bad); }
+.tablewrap { max-height: 320px; overflow: auto; border-radius: 8px; }
+.space { font-size: 12.5px; margin-top: 7px; color: var(--muted); }
+.space.low { color: var(--bad); font-weight: 600; }
+.option { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; padding: 11px 12px; border-radius: 10px;
+  background: var(--raise); border: var(--bw) solid var(--line); cursor: pointer; font-size: 13.5px;
+  transition: border-color .15s; }
+.option:hover { border-color: var(--line-strong); }
+.option input { margin-top: 2px; }
+.option b { font-weight: 600; }
+.option .muted { display: block; font-size: 12.5px; margin-top: 1px; }
+
+.go { display: flex; align-items: center; gap: 14px; margin-top: 18px; flex-wrap: wrap; }
+.problem { color: var(--muted); font-size: 13px; }
+.banner { border: var(--bw) solid var(--bad); background: var(--bad-soft); border-radius: 12px; padding: 12px 14px;
+  margin: -6px 0 18px; font-size: 13.5px; }
+.banner code { background: var(--chip); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }
+
+/* ------------------------------------------------------------------ progress */
+.prog-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.prog-head h3 { margin: 0; }
+.prog-head .actions { margin-left: auto; display: flex; gap: 8px; }
+.bar { height: 7px; background: var(--chip); border-radius: 99px; overflow: hidden; margin: 12px 0 10px; }
+.bar > div { height: 100%; background: var(--btn); width: 0; border-radius: 99px; transition: width .5s ease; }
+.items { display: grid; font-size: 13px; }
+.item { display: grid; grid-template-columns: 58px 22px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 2px;
+  border-bottom: var(--bw) solid var(--line); }
+.item:last-child { border-bottom: 0; }
+.item .ep { font-weight: 600; }
+.item .detail { color: var(--muted); }
+.item.done .detail { color: var(--text); }
+.item .note { grid-column: 3 / span 2; color: var(--warn); font-size: 12px; }
+.st { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; font-size: 11px; font-weight: 800; }
+.st.done { background: var(--ok); color: var(--card); }
+.st.warning { background: var(--warn); color: var(--card); }
+.st.failed { background: var(--bad); color: var(--card); }
+.st.working { color: var(--accent); }
+.st.waiting, .st.cancelled { color: var(--muted); }
+
+.banner.info { border-color: var(--accent); background: var(--accent-soft); display: flex; gap: 10px;
+  align-items: center; flex-wrap: wrap; }
+.banner.info .grow { flex: 1; min-width: 200px; }
+.banner.info a.btnlink { background: var(--btn); color: var(--btn-text); border-radius: 8px; padding: 6px 12px;
+  text-decoration: none; font-weight: 650; }
+.opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 780px) { .opt-grid { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label { font-size: 13px; font-weight: 600; }
+select { font: inherit; font-size: 13.5px; padding: 8px 34px 8px 11px; border-radius: 9px; width: 100%;
+  border: var(--bw) solid var(--line-strong); background-color: var(--input); color: var(--text); cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; transition: border-color .15s, box-shadow .15s; }
+select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--focus); }
+.hint { color: var(--muted); font-size: 12.5px; margin: 8px 0 0; }
+.item .act { grid-column: 4; grid-row: 1; align-self: center; }
+.item .act button { font-size: 12px; padding: 3px 10px; display: inline-flex; gap: 6px; align-items: center; }
+.item .act svg { width: 11px; height: 11px; }
+footer { margin-top: 30px; color: var(--muted); font-size: 12px; text-align: center; line-height: 1.9; }
+footer button.link { color: var(--accent); font-size: 12px; padding: 0 2px; }
+footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <svg class="logo" viewBox="0 0 1024 1024" aria-hidden="true">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33353b"/><stop offset="1" stop-color="#121316"/></linearGradient></defs>
+      <rect x="40" y="40" width="944" height="944" rx="220" fill="url(#lg)" stroke-width="24" style="stroke: var(--logo-ring)"/>
+      <path d="M488 540C455 640 410 735 350 835M512 505C430 380 250 300 214 420C182 530 360 590 512 525" fill="none" stroke="#fff" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/><path d="M536 540C569 640 614 735 674 835M512 505C594 380 774 300 810 420C842 530 664 590 512 525" fill="none" stroke="#e8413a" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/><rect x="452" y="452" width="120" height="132" rx="44" fill="#fff" stroke="#121316" stroke-width="14"/><path d="M478 500H546M478 538H546" stroke="#e8413a" stroke-width="12" stroke-linecap="round"/>
+    </svg>
+    <h1>Kizuna</h1>
+    <div class="head-tools">
+      <div class="segmented" role="group" aria-label="Theme">
+        <button data-theme-btn="light" aria-pressed="false" title="Light theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Light</button>
+        <button data-theme-btn="dark" aria-pressed="false" title="Dark theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Dark</button>
+        <button data-theme-btn="kon" aria-pressed="false" title="Kon: high contrast (紺, navy blue)" aria-label="Kon, high contrast">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>Kon</button>
+        <button data-theme-btn="urushi" aria-pressed="false" title="Urushi: high contrast (漆, black and red lacquer)" aria-label="Urushi, high contrast">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12a9 9 0 0 0 18 0z" fill="currentColor"/></svg>Urushi</button>
+      </div>
+      <button id="quit" title="Close Kizuna">Quit</button>
+    </div>
+  </header>
+  <p class="lede">Pick two folders of the same show, choose what you want from each, and Kizuna builds one
+    file per episode with all of it, synced to the chosen video.</p>
+  <div class="banner hidden" id="banner" role="alert"></div>
+  <div class="banner info hidden" id="update-banner" role="status"></div>
+
+  <div class="folders">
+    <div class="card" id="card-A"></div>
+    <div class="card" id="card-B"></div>
+  </div>
+
+  <section class="block card hidden" id="pairing">
+    <details>
+      <summary><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        <span id="pair-summary"></span><span class="muted">· show list</span></summary>
+      <div class="tablewrap"><table>
+        <colgroup><col style="width:38px"><col style="width:50px"><col><col></colgroup>
+        <thead><tr><th><input type="checkbox" id="all-eps" checked aria-label="Select all episodes"></th>
+          <th>Ep</th><th>Folder A</th><th id="pair-head-b">Folder B</th></tr></thead>
+        <tbody id="pair-body"></tbody>
+      </table></div>
+    </details>
+  </section>
+
+  <section class="block card">
+    <h3>Save merged files to</h3>
+    <div class="pathrow">
+      <input type="text" id="out" placeholder="Choose an output folder" spellcheck="false" aria-label="Output folder">
+      <button id="out-pick">Choose…</button>
+    </div>
+    <div class="space" id="space"></div>
+  </section>
+
+  <section class="block card" id="options">
+    <h3>Options</h3>
+    <div class="opt-grid">
+      <label class="field"><span class="field-label">Audio that plays first</span>
+        <select id="def-audio"><option value="">Keep as in the files</option></select></label>
+      <label class="field"><span class="field-label">Subtitles shown first</span>
+        <select id="def-subs"><option value="">Keep as in the files</option><option value="none">No subtitles</option></select></label>
+    </div>
+    <p class="hint">Which tracks your video player starts with. You can still switch while watching.</p>
+    <label class="option"><input type="checkbox" id="export-subs">
+      <span><b>Also save the subtitles as separate files</b>
+        <span class="muted">In a “Subtitles for upload” folder, named to match each video and ready to upload to OpenSubtitles.</span></span>
+    </label>
+  </section>
+
+  <div class="go">
+    <button class="primary" id="start" disabled><span id="start-label">Merge</span></button>
+    <span class="problem" id="problem" aria-live="polite"></span>
+  </div>
+
+  <section class="block card hidden" id="progress" aria-live="polite">
+    <div class="prog-head">
+      <h3 id="prog-title">Merging…</h3>
+      <span class="muted" id="prog-count"></span>
+      <span class="actions">
+        <button id="stop">Stop</button>
+        <button id="open-out">Open folder</button>
+      </span>
+    </div>
+    <div class="bar"><div id="bar"></div></div>
+    <div class="items" id="items"></div>
+  </section>
+
+  <footer>
+    <span id="version">Kizuna</span> · Free software under the GPL-3.0 ·
+    Uses <a href="https://ffmpeg.org" target="_blank" rel="noopener">FFmpeg</a> and
+    <a href="https://mkvtoolnix.download" target="_blank" rel="noopener">MKVToolNix</a>
+    <br><a id="help-link" href="#" target="_blank" rel="noopener">Help &amp; feedback</a> ·
+    Check for updates: <button class="link" id="upd-toggle" title="Kizuna asks GitHub once per launch whether a newer version exists. Nothing about you or your files is sent.">On</button>
+  </footer>
+</main>
+
+<script>
+"use strict";
+const TOKEN = new URLSearchParams(location.search).get("t");
+async function api(path, body) {
+  try {
+    const r = await fetch("/api/" + path, { method: "POST", headers: { "X-Token": TOKEN,
+      "Content-Type": "application/json" }, body: JSON.stringify(body || {}) });
+    return await r.json();
+  } catch (e) {
+    return { error: "Kizuna isn't running any more. Open it again to continue." };
+  }
+}
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const gb = (b) => b >= 1e9 ? (b / 1e9).toFixed(1) + " GB" : Math.max(1, Math.round(b / 1e6)) + " MB";
+const trimPath = (p) => { p = (p || "").trim(); return p.length > 3 ? p.replace(/[\\/]+$/, "") : p; };
+const samePath = (a, b) => !!a && !!b && trimPath(a).toLowerCase() === trimPath(b).toLowerCase();
+const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
+const APP_TITLE = "Kizuna";
+
+/* ------------------------------------------------------------------ theme */
+let themeChosen = !!document.documentElement.getAttribute("data-saved-theme");
+function setTheme(t, save) {
+  document.documentElement.setAttribute("data-theme", t);
+  document.querySelectorAll("[data-theme-btn]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.themeBtn === t)));
+  if (save) { themeChosen = true; api("settings", { theme: t }); }
+}
+setTheme(document.documentElement.getAttribute("data-theme"), false);
+document.querySelectorAll("[data-theme-btn]").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.themeBtn, true)));
+if (window.matchMedia) {
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    if (!themeChosen) setTheme(e.matches ? "dark" : "light", false);
+  });
+}
+
+/* ------------------------------------------------------------------ state */
+const S = {
+  A: { path: "", scan: null, loading: false, error: "", video: true, audio: new Set(), subtitles: new Set() },
+  B: { path: "", scan: null, loading: false, error: "", video: false, audio: new Set(), subtitles: new Set() },
+  rows: [], byNumber: true, eps: new Set(), out: "", outTouched: false, free: null, job: null, missing: [],
+  restoring: false, wasRunning: false,
+};
+const other = (k) => k === "A" ? "B" : "A";
+const single = () => !S.B.path;                  // one-folder clean-up mode
+const baseKey = () => single() ? (S.A.video ? "A" : null) : S.A.video ? "A" : S.B.video ? "B" : null;
+const rowOk = (r) => single() ? !!r.a : !!(r.a && r.b);
+
+/* ------------------------------------------------------------------ remember the last setup */
+let saveTimer = null;
+function snapshot() {
+  const f = (k) => ({ path: S[k].path, video: S[k].video, audio: [...S[k].audio], subtitles: [...S[k].subtitles] });
+  return { A: f("A"), B: f("B"), out: S.out, outTouched: S.outTouched, export: $("export-subs").checked,
+           defAudio: $("def-audio").value, defSubs: $("def-subs").value };
+}
+function saveLast() {
+  if (S.restoring) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => api("settings", { last: snapshot() }), 400);
+}
+
+/* ------------------------------------------------------------------ folder cards */
+function renderCard(k) {
+  const f = S[k], el = $("card-" + k), sc = f.scan;
+  const isVideo = sc && f.video && baseKey() === k;
+  const role = !sc ? "" : isVideo ? "Video comes from here" : (baseKey() ? "Tracks added to the video" : "");
+  const title = k === "B" ? `Folder B <span class="muted" style="font-weight:500">(optional)</span>` : "Folder A";
+  let h = `<div class="card-title"><span class="badge">${k}</span>${title}${role ? `<span class="role ${isVideo ? "video" : ""}">${role}</span>` : ""}</div>
+    <div class="pathrow"><input type="text" data-path="${k}" value="${esc(f.path)}" placeholder="Choose a folder of videos" spellcheck="false" aria-label="Folder ${k}">
+    <button data-pick="${k}">Choose…</button></div>`;
+  if (f.loading) h += `<div class="meta"><span class="spinner"></span>Reading videos…</div>`;
+  else if (f.error) h += `<div class="meta err">${esc(f.error)}</div>`;
+  else if (sc) {
+    const n = sc.files.length;
+    h += `<div class="meta">${plural(n, "video")} · ${gb(sc.size)}${sc.errors.length ? ` · ${sc.errors.length} couldn't be read` : ""}</div>`;
+    const v = sc.video.map(g => g.key).join(", ");
+    const canVideo = !(k === "B" && single());
+    h += `<div class="cat"><div class="cat-head"><label><input type="checkbox" data-cat="${k}:video" ${f.video && canVideo ? "checked" : ""} ${canVideo ? "" : "disabled"}>Video</label></div>
+      <div class="cat-note">${esc(v || "No video tracks")}${f.video ? "" : " · tick to use this folder’s video instead"}</div></div>`;
+    h += renderCat(k, "audio") + renderCat(k, "subtitles");
+  } else if (k === "A") {
+    h += `<div class="empty-card">No folder chosen yet. Pick the folder with the episodes whose video you want to keep.</div>`;
+  } else {
+    h += `<div class="empty-card">Optional. Add a second release of the same episodes to bring in its audio or subtitles.
+      Leave it empty to just choose which tracks to keep from Folder A.</div>`;
+  }
+  el.innerHTML = h;
+  syncCatBoxes(k);
+}
+
+function renderCat(k, cat) {
+  const f = S[k], groups = f.scan[cat], n = f.scan.files.length;
+  const title = cat === "audio" ? "Audio" : "Subtitles";
+  if (!groups.length) return `<div class="cat"><div class="cat-head"><label><input type="checkbox" disabled>${title}</label></div><div class="none-note">None in these files</div></div>`;
+  let h = `<div class="cat"><div class="cat-head"><label><input type="checkbox" data-cat="${k}:${cat}">${title}</label>
+    ${groups.length > 3 ? `<span class="tools"><button class="link" data-all="${k}:${cat}">All</button><button class="link" data-none="${k}:${cat}">None</button></span>` : ""}</div><div class="chips">`;
+  for (const g of groups) {
+    const sub = [g.names.slice(0, 2).join(", "), g.codecs.join("/")].filter(Boolean).join(" · ");
+    const cnt = g.count < n ? ` · in ${g.count} of ${n}` : "";
+    const on = f[cat].has(g.key);
+    h += `<label class="chip ${on ? "on" : ""}" title="${esc(g.names.join(", ") || g.label)}"><input type="checkbox" data-chip="${k}:${cat}:${esc(g.key)}" ${on ? "checked" : ""}>
+      ${esc(g.label)}<span class="sub">${esc(sub + cnt)}</span></label>`;
+  }
+  return h + `</div></div>`;
+}
+
+// update category checkboxes and chips in place (no re-render, so no flicker)
+function syncCatBoxes(k) {
+  const f = S[k]; if (!f.scan) return;
+  for (const cat of ["audio", "subtitles"]) {
+    const box = document.querySelector(`[data-cat="${k}:${cat}"]`); if (!box) continue;
+    const total = f.scan[cat].length, on = f.scan[cat].filter(g => f[cat].has(g.key)).length;
+    box.checked = on > 0; box.indeterminate = on > 0 && on < total;
+    document.querySelectorAll(`[data-chip^="${k}:${cat}:"]`).forEach(c => {
+      const key = c.dataset.chip.split(":").slice(2).join(":");
+      c.checked = f[cat].has(key); c.closest(".chip").classList.toggle("on", c.checked);
+    });
+  }
+}
+
+/* ------------------------------------------------------------------ "play by default" choices */
+function renderDefaults() {
+  const bk = baseKey();
+  const folders = single() ? ["A"] : ["A", "B"];
+  const label = (k) => single() ? "" : ` · Folder ${k}`;
+  const aSel = $("def-audio"), sSel = $("def-subs");
+  const aPrev = aSel.value, sPrev = sSel.value;
+  let a = `<option value="">Keep as in the files</option>`;
+  let s = `<option value="">Keep as in the files</option><option value="none">No subtitles</option>`;
+  for (const k of folders) {
+    const f = S[k]; if (!f.scan) continue;
+    for (const g of f.scan.audio) if (f.audio.has(g.key)) a += `<option value="${k}:${esc(g.key)}">${esc(g.label)}${label(k)}</option>`;
+    for (const g of f.scan.subtitles) if (f.subtitles.has(g.key)) {
+      for (const kind of (g.kinds || ["full"])) {
+        const what = kind === "forced" ? "signs / forced only" : "full";
+        s += `<option value="${k}:${esc(g.key)}:${kind}">${esc(g.label)}, ${what}${label(k)}</option>`;
+      }
+    }
+  }
+  aSel.innerHTML = a; sSel.innerHTML = s;
+  aSel.value = [...aSel.options].some(o => o.value === aPrev) ? aPrev : "";
+  sSel.value = [...sSel.options].some(o => o.value === sPrev) ? sPrev : "";
+  aSel.disabled = sSel.disabled = !bk;
+}
+
+function defaultsForJob(bk) {
+  const side = (k) => k === bk ? "base" : "donor";
+  const a = $("def-audio").value, s = $("def-subs").value;
+  const out = { audio: null, subtitles: null };
+  if (a) { const [k, lang] = a.split(":"); out.audio = { from: side(k), lang }; }
+  if (s === "none") out.subtitles = "none";
+  else if (s) { const [k, lang, kind] = s.split(":"); out.subtitles = { from: side(k), lang, kind }; }
+  return out;
+}
+
+/* ------------------------------------------------------------------ episode list */
+function renderPairing() {
+  const box = $("pairing");
+  if (!S.A.scan || (!single() && !S.B.scan)) { box.classList.add("hidden"); return; }
+  if (box.classList.contains("hidden")) { box.classList.remove("hidden"); box.classList.add("reveal"); }
+  const ok = S.rows.filter(rowOk).length, miss = S.rows.length - ok;
+  $("pair-summary").textContent = single() ? `${plural(ok, "episode")}` :
+    `${plural(ok, "episode")} matched` + (miss ? ` · ${miss} only in one folder` : "") +
+    (S.byNumber ? "" : " · matched by file order (no episode numbers found)");
+  $("pair-head-b").classList.toggle("hidden", single());
+  $("pair-body").innerHTML = S.rows.map(r => {
+    const good = rowOk(r);
+    return `<tr><td><input type="checkbox" data-ep="${r.ep}" ${good && S.eps.has(r.ep) ? "checked" : ""} ${good ? "" : "disabled"} aria-label="Episode ${r.ep}"></td>
+      <td>${r.ep}</td><td class="${r.a ? "" : "missing"}" title="${esc(r.a)}">${esc(r.a || "missing")}</td>
+      ${single() ? "" : `<td class="${r.b ? "" : "missing"}" title="${esc(r.b)}">${esc(r.b || "missing")}</td>`}</tr>`;
+  }).join("");
+  $("all-eps").checked = S.eps.size === ok && ok > 0;
+}
+
+/* ------------------------------------------------------------------ validation / bottom */
+function selection() {
+  const bk = baseKey(); if (!bk) return null;
+  const dk = single() ? null : other(bk);
+  return { bk, dk, sel: {
+    base: { audio: [...S[bk].audio], subtitles: [...S[bk].subtitles] },
+    donor: dk ? { audio: [...S[dk].audio], subtitles: [...S[dk].subtitles] } : { audio: [], subtitles: [] } } };
+}
+
+function problems() {
+  if (S.missing.length) return "Required tools are missing (see the note at the top).";
+  if (!S.A.scan) return S.A.loading ? "" : "Choose Folder A to begin.";
+  if (!single() && !S.B.scan) return S.B.loading ? "" : (S.B.error ? "Folder B couldn't be read. Fix it, or clear it to use Folder A only." : "");
+  if (!single() && samePath(S.A.path, S.B.path)) return "Folder A and Folder B are the same folder.";
+  const s = selection();
+  if (!s) return single() ? "Tick Video in Folder A." : "Tick Video in one of the folders.";
+  if (!S.eps.size) return "No episodes selected.";
+  if (!(s.sel.base.audio.length + s.sel.donor.audio.length)) return "Pick at least one audio track.";
+  if (!S.out) return "Choose where to save the merged files.";
+  if (samePath(S.out, S.A.path) || samePath(S.out, S.B.path)) return "Save to a different folder than the source folders.";
+  return "";
+}
+
+function estimate() {
+  const s = selection(); if (!s || !S.A.scan) return 0;
+  const sizes = (k) => S[k].scan ? Object.fromEntries(S[k].scan.files.map(f => [f.name, f.size])) : {};
+  const sa = sizes("A"), sb = sizes("B"), donorUsed = s.sel.donor.audio.length + s.sel.donor.subtitles.length > 0;
+  let t = 0;
+  for (const r of S.rows) if (S.eps.has(r.ep) && rowOk(r)) {
+    const base = s.bk === "A" ? sa[r.a] : sb[r.b], donor = s.bk === "A" ? (sb[r.b] || 0) : (sa[r.a] || 0);
+    t += (base || 0) + (donorUsed ? donor * 0.12 : 0);
+  }
+  return t;
+}
+
+function renderBottom() {
+  const est = estimate(), sp = $("space");
+  if (S.free != null && est) {
+    const low = est > S.free * 0.97;
+    sp.className = "space" + (low ? " low" : "");
+    sp.textContent = `About ${gb(est)} needed · ${gb(S.free)} free` + (low ? " · not enough space" : "");
+  } else { sp.className = "space"; sp.textContent = S.free != null && S.out ? `${gb(S.free)} free` : ""; }
+  const running = !!(S.job && S.job.running), p = problems();
+  $("problem").textContent = running ? "" : p;
+  $("start").disabled = !!p || running || S.A.loading || S.B.loading;
+  $("start-label").innerHTML = running ? `<span class="spinner"></span> Merging…` : (single() ? "Save" : "Merge");
+}
+
+function renderAll() { renderCard("A"); renderCard("B"); renderPairing(); renderDefaults(); renderBottom(); }
+
+/* ------------------------------------------------------------------ actions */
+async function setFolder(k, path, saved) {
+  path = trimPath(path);
+  const f = S[k]; f.path = path; f.scan = null; f.error = "";
+  if (k === "B" && !path) S.A.video = true;            // one-folder mode: video from A
+  if (!path) { await refreshPairs(); renderAll(); saveLast(); return; }
+  f.loading = true; renderAll();
+  const r = await api("scan", { path });
+  f.loading = false;
+  if (r.error) { f.error = r.error; renderAll(); return; }
+  if (!r.files.length) { f.error = "No .mkv, .mp4 or .webm videos in this folder."; renderAll(); return; }
+  f.scan = r;
+  const has = (cat) => new Set(r[cat].map(g => g.key));
+  if (saved) {           // restoring the last setup: keep the ticks that still apply
+    f.audio = new Set(saved.audio.filter(x => has("audio").has(x)));
+    f.subtitles = new Set(saved.subtitles.filter(x => has("subtitles").has(x)));
+  } else {               // the video folder keeps everything; the other starts with nothing ticked
+    const keepAll = f.video && baseKey() === k;
+    f.audio = new Set(keepAll ? r.audio.map(g => g.key) : []);
+    f.subtitles = new Set(keepAll ? r.subtitles.map(g => g.key) : []);
+  }
+  if (!S.outTouched && f.video && baseKey() === k) { S.out = path + " (merged)"; $("out").value = S.out; }
+  await refreshPairs(); await refreshSpace(); renderAll(); saveLast();
+}
+
+async function refreshPairs() {
+  if (!S.A.scan || (!single() && !S.B.scan)) { S.rows = []; S.eps = new Set(); return; }
+  const r = await api("pair", { a: S.A.scan.files, b: single() ? [] : S.B.scan.files });
+  S.rows = r.rows || []; S.byNumber = r.by_number;
+  S.eps = new Set(S.rows.filter(rowOk).map(x => x.ep));
+}
+async function refreshSpace() { const r = await api("space", { path: S.out || S.A.path || "" }); S.free = r.free ?? null; }
+
+document.addEventListener("click", async (e) => {
+  const t = e.target.closest("button"); if (!t) return;
+  if (t.dataset.pick) {
+    const k = t.dataset.pick;
+    t.disabled = true;
+    const r = await api("pick", { prompt: `Choose Folder ${k}`, start: S[k].path || S[other(k)].path });
+    t.disabled = false;
+    if (r.path) setFolder(k, r.path);
+  } else if (t.dataset.all || t.dataset.none) {
+    const [k, cat] = (t.dataset.all || t.dataset.none).split(":");
+    S[k][cat] = new Set(t.dataset.all ? S[k].scan[cat].map(g => g.key) : []);
+    syncCatBoxes(k); renderDefaults(); renderBottom(); saveLast();
+  } else if (t.dataset.preview) {
+    const label = t.innerHTML; t.disabled = true; t.innerHTML = `<span class="spinner"></span> Opening…`;
+    const r = await api("preview", { ep: t.dataset.preview });
+    t.disabled = false; t.innerHTML = label;
+    if (r.error) alert(r.error);
+  }
+});
+
+document.addEventListener("change", async (e) => {
+  const t = e.target;
+  if (t.dataset.path) return setFolder(t.dataset.path, t.value);
+  if (t.dataset.cat) {
+    const [k, cat] = t.dataset.cat.split(":");
+    if (cat === "video") {
+      S[k].video = t.checked;
+      if (t.checked) S[other(k)].video = false;        // the video comes from one folder only
+      if (!S.outTouched && t.checked && S[k].path) { S.out = S[k].path + " (merged)"; $("out").value = S.out; }
+      renderCard("A"); renderCard("B"); renderDefaults(); renderBottom();
+    } else {
+      S[k][cat] = new Set(t.checked ? S[k].scan[cat].map(g => g.key) : []);
+      syncCatBoxes(k); renderDefaults(); renderBottom();
+    }
+    return saveLast();
+  }
+  if (t.dataset.chip) {
+    const [k, cat, ...rest] = t.dataset.chip.split(":"); const key = rest.join(":");
+    t.checked ? S[k][cat].add(key) : S[k][cat].delete(key);
+    syncCatBoxes(k); renderDefaults(); renderBottom(); return saveLast();
+  }
+  if (t.dataset.ep) {
+    const ep = +t.dataset.ep; t.checked ? S.eps.add(ep) : S.eps.delete(ep);
+    $("all-eps").checked = S.eps.size === S.rows.filter(rowOk).length; return renderBottom();
+  }
+  if (t.id === "all-eps") { S.eps = new Set(t.checked ? S.rows.filter(rowOk).map(r => r.ep) : []); renderPairing(); renderBottom(); }
+  if (t.id === "out") { S.out = trimPath(t.value); S.outTouched = true; await refreshSpace(); renderBottom(); saveLast(); }
+  if (["def-audio", "def-subs", "export-subs"].includes(t.id)) saveLast();
+});
+
+$("out-pick").onclick = async () => {
+  $("out-pick").disabled = true;
+  const r = await api("pick", { prompt: "Choose where to save the merged files", start: S.out || S.A.path || S.B.path });
+  $("out-pick").disabled = false;
+  if (r.path) { S.out = r.path; S.outTouched = true; $("out").value = r.path; await refreshSpace(); renderBottom(); saveLast(); }
+};
+
+$("start").onclick = async () => {
+  const s = selection(); if (!s) return;
+  if (window.Notification && Notification.permission === "default") {
+    try { Notification.requestPermission(); } catch (e) {}       // so we can say when it's done
+  }
+  const episodes = S.rows.filter(r => S.eps.has(r.ep) && rowOk(r)).map(r => ({
+    ep: r.ep, base: s.bk === "A" ? r.a : r.b, donor: single() ? null : (s.bk === "A" ? r.b : r.a) }));
+  const body = { base: S[s.bk].path, donor: s.dk ? S[s.dk].path : "", out: S.out, sel: s.sel, episodes,
+                 export_subs: $("export-subs").checked, defaults: defaultsForJob(s.bk) };
+  $("start").disabled = true;
+  let r = await api("start", body);
+  if (r.confirm_overwrite) {
+    const n = r.confirm_overwrite;
+    if (!confirm(`${plural(n, "file")} with the same name already exist${n > 1 ? "" : "s"} in the output folder and will be replaced. Continue?`)) { renderBottom(); return; }
+    r = await api("start", { ...body, overwrite: true });
+  }
+  if (r.error) { renderBottom(); $("problem").textContent = r.error; return; }
+  itemEls = {}; $("items").innerHTML = ""; document.title = APP_TITLE;
+  poll();
+};
+$("stop").onclick = () => { api("cancel"); $("stop").disabled = true; $("stop").textContent = "Stopping…"; };
+$("open-out").onclick = () => S.job && api("reveal", { path: S.job.out });
+$("quit").onclick = async () => {
+  if (S.job && S.job.running && !confirm("A merge is still running. Quit anyway?")) return;
+  await api("quit");
+  document.querySelector("main").innerHTML = `<header><h1>Kizuna has closed.</h1></header><p class="lede">You can close this tab. Open Kizuna again whenever you need it.</p>`;
+};
+
+/* ------------------------------------------------------------------ progress (updated in place) */
+const ICON = { waiting: "", working: '<span class="spinner"></span>', done: "✓", warning: "!", failed: "✕", cancelled: "–" };
+const PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>';
+let itemEls = {};
+
+function etaText(j) {
+  const now = Date.now() / 1000;
+  const done = j.items.filter(i => i.finished_at && i.started_at && ["done", "warning"].includes(i.state));
+  if (!j.running || !done.length) return "";
+  const avg = done.reduce((t, i) => t + (i.finished_at - i.started_at), 0) / done.length;
+  const waiting = j.items.filter(i => i.state === "waiting").length;
+  const working = j.items.filter(i => i.state === "working");
+  const left = (avg * waiting + working.reduce((t, i) => t + Math.max(0, avg - (now - i.started_at)), 0)) / (j.workers || 1);
+  if (left < 60) return " · less than a minute left";
+  return ` · about ${plural(Math.round(left / 60), "minute")} left`;
+}
+
+function renderJob() {
+  const j = S.job; if (!j) return;
+  const box = $("progress");
+  if (box.classList.contains("hidden")) { box.classList.remove("hidden"); box.classList.add("reveal"); }
+  const fin = j.items.filter(i => !["waiting", "working"].includes(i.state)).length;
+  const fails = j.items.filter(i => i.state === "failed").length, warns = j.items.filter(i => i.state === "warning").length;
+  $("bar").style.width = (100 * fin / Math.max(1, j.items.length)) + "%";
+  $("prog-count").textContent = `${fin} of ${j.items.length}` + etaText(j);
+  const finishedTitle = j.cancel ? "Stopped" : fails ? `Finished with ${plural(fails, "problem")}` :
+    warns ? "Finished · please check the ones marked !" : "All done";
+  $("prog-title").textContent = j.running ? "Merging…" : finishedTitle;
+  $("stop").classList.toggle("hidden", !j.running);
+  for (const i of j.items) {
+    let el = itemEls[i.ep];
+    if (!el) {
+      el = document.createElement("div"); el.className = "item";
+      el.innerHTML = `<span class="ep">Ep ${esc(i.ep)}</span><span class="st"></span><span class="detail"></span>` +
+        `<span class="notes" style="display:contents"></span><span class="act"></span>`;
+      $("items").appendChild(el); itemEls[i.ep] = el;
+    }
+    const text = i.state === "working" ? (i.step || "Working") + "…" : i.state === "waiting" ? "Waiting" :
+      i.state === "cancelled" ? "Not started" : i.detail;
+    el.className = "item " + i.state;
+    const st = el.querySelector(".st");
+    if (st.dataset.state !== i.state) { st.className = "st " + i.state; st.innerHTML = ICON[i.state] || ""; st.dataset.state = i.state; }
+    const d = el.querySelector(".detail"); if (d.textContent !== text) d.textContent = text;
+    const notes = (i.notes || []).map(n => `<span class="note">${esc(n)}</span>`).join("");
+    const ne = el.querySelector(".notes"); if (ne.dataset.html !== notes) { ne.innerHTML = notes; ne.dataset.html = notes; }
+    const act = el.querySelector(".act");
+    if (i.preview && !act.dataset.done) {
+      act.innerHTML = `<button data-preview="${esc(i.ep)}" title="Opens a 20-second clip around a point where the timing was adjusted, with the added tracks switched on">${PLAY} Preview</button>`;
+      act.dataset.done = "1";
+    }
+  }
+  // tell the user when a long merge finishes
+  if (S.wasRunning && !j.running) {
+    document.title = `✓ ${finishedTitle} · ${APP_TITLE}`;
+    if (window.Notification && Notification.permission === "granted") {
+      try { new Notification("Kizuna", { body: `${finishedTitle}: ${fin - fails} of ${j.items.length} episodes saved.` }); } catch (e) {}
+    }
+  }
+  S.wasRunning = j.running;
+}
+window.addEventListener("focus", () => { if (S.job && !S.job.running) document.title = APP_TITLE; });
+
+async function poll() {
+  const r = await api("status"); S.job = r.job || null; renderJob(); renderBottom();
+  if (S.job && S.job.running) setTimeout(poll, 1000);
+  else { $("stop").disabled = false; $("stop").textContent = "Stop"; }
+}
+
+/* ------------------------------------------------------------------ startup: info, updates, last setup */
+function renderUpdate(r) {
+  const b = $("update-banner");
+  if (r.update && r.check_updates) {
+    b.innerHTML = `<span class="grow"><b>Kizuna ${esc(r.update.version)} is available.</b> You have ${esc(r.version)}.</span>
+      <a class="btnlink" href="${esc(r.update.url)}" target="_blank" rel="noopener">Download</a>
+      <button class="link" id="upd-hide">Not now</button>`;
+    b.classList.remove("hidden");
+    $("upd-hide").onclick = () => b.classList.add("hidden");
+  } else b.classList.add("hidden");
+  $("upd-toggle").textContent = r.check_updates ? "On" : "Off";
+}
+$("upd-toggle").onclick = async () => {
+  const on = $("upd-toggle").textContent !== "On";
+  await api("settings", { check_updates: on });
+  setTimeout(async () => renderUpdate(await api("info")), on ? 2500 : 0);
+};
+
+async function restore(last) {
+  if (!last || !last.A || !last.A.path) return;
+  S.restoring = true;
+  try {
+    S.A.video = last.A.video !== false; S.B.video = !!(last.B && last.B.video) && !!(last.B && last.B.path);
+    if (S.B.video) S.A.video = false;
+    S.out = last.out || ""; S.outTouched = !!last.outTouched; $("out").value = S.out;
+    $("export-subs").checked = !!last.export;
+    await setFolder("A", last.A.path, last.A);
+    if (last.B && last.B.path) await setFolder("B", last.B.path, last.B);
+    renderDefaults();
+    const pick = (sel, v) => { if ([...sel.options].some(o => o.value === v)) sel.value = v; };
+    pick($("def-audio"), last.defAudio || ""); pick($("def-subs"), last.defSubs || "");
+  } finally { S.restoring = false; renderBottom(); }
+}
+
+async function loadInfo() {
+  const r = await api("info");
+  if (r.error) return;
+  $("version").textContent = `Kizuna ${r.version}`;
+  $("help-link").href = `https://github.com/${r.repo}#readme`;
+  S.missing = r.missing || [];
+  if (S.missing.length) {
+    const how = r.platform === "mac" ? "Install them with Homebrew: <code>brew install ffmpeg mkvtoolnix</code>"
+      : r.platform === "windows" ? "Install them with: <code>winget install Gyan.FFmpeg MoritzBunkus.MKVToolNix</code>"
+      : "Install the <code>ffmpeg</code> and <code>mkvtoolnix</code> packages from your distribution.";
+    $("banner").innerHTML = `<b>Missing: ${S.missing.map(esc).join(", ")}.</b> Kizuna needs ffmpeg and MKVToolNix. ` +
+      `${how} Then restart Kizuna. (The installers on the Releases page already include them.)`;
+    $("banner").classList.remove("hidden");
+  }
+  renderUpdate(r);
+  renderBottom();
+  if (!(S.job && S.job.running)) await restore(r.last);
+  // the update check runs in the background on launch; look again once it has had time
+  if (r.check_updates && !r.update) setTimeout(async () => { const r2 = await api("info"); if (!r2.error) renderUpdate(r2); }, 8000);
+}
+setInterval(() => api("ping"), 20000);
+renderAll(); poll().then(loadInfo);
+</script>
+</body>
+</html>

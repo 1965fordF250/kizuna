@@ -1,0 +1,2 @@
+# Running Kizuna from source (Python 3.9+). Also needs ffmpeg and MKVToolNix installed.
+numpy>=1.24

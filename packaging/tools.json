@@ -1,0 +1,56 @@
+{
+  "_comment": "Pinned third-party tools bundled into the installers. Every download is verified against sha256 before use. To update: change version, url and sha256 together (take the checksum from the publisher), then run the release workflow.",
+  "ffmpeg_version": "9.1",
+  "mkvtoolnix_version": "104.0",
+  "windows-x64": {
+    "ffmpeg": {
+      "url": "https://github.com/GyanD/codexffmpeg/releases/download/9.1/ffmpeg-9.1-essentials_build.zip",
+      "sha256": "b9bbbb3acece000cbeec994f856649354e52c773807841e78908374b24d658fd",
+      "builder": "Gyan Doshi (https://www.gyan.dev/ffmpeg/builds/)"
+    },
+    "mkvtoolnix": {
+      "url": "https://mkvtoolnix.download/windows/releases/104.0/mkvtoolnix-64-bit-104.0.7z",
+      "sha256": "4d14b615819d2e106893d68114e45f7bbe8092dcb4c7c3599a0c0a52313321a9"
+    }
+  },
+  "macos-arm64": {
+    "ffmpeg": {
+      "url": "https://ffmpeg.martin-riedl.de/download/macos/arm64/1795207104_9.1/ffmpeg.zip",
+      "sha256": "1f66e9a690a7f1c9e60b012379f8869c11818d1797f45b21dbb2f2564ba61ae1",
+      "builder": "Martin Riedl (https://ffmpeg.martin-riedl.de, build scripts: https://gitlab.com/martinr92/ffmpeg)"
+    },
+    "ffprobe": {
+      "url": "https://ffmpeg.martin-riedl.de/download/macos/arm64/1795207104_9.1/ffprobe.zip",
+      "sha256": "6ef2df5f575042923a28537ab37adf936f28bf3e7b85de23a1447ed447ec1dbd"
+    },
+    "mkvtoolnix": {
+      "url": "https://mkvtoolnix.download/macos/releases/104.0/MKVToolNix-104.0-1-universal.dmg",
+      "sha256": "8d01d6a69f70de357687de35e20245cdfcba1c122c88c3aaec4b34fd0bfc7b08"
+    }
+  },
+  "macos-x86_64": {
+    "ffmpeg": {
+      "url": "https://ffmpeg.martin-riedl.de/download/macos/amd64/1795212433_9.1/ffmpeg.zip",
+      "sha256": "35b3d82cccc2c1d644d49d15f5e57eb913a08ef68f798042c90eecec62c51f1e",
+      "builder": "Martin Riedl (https://ffmpeg.martin-riedl.de, build scripts: https://gitlab.com/martinr92/ffmpeg)"
+    },
+    "ffprobe": {
+      "url": "https://ffmpeg.martin-riedl.de/download/macos/amd64/1795212433_9.1/ffprobe.zip",
+      "sha256": "41ca7b7cba7992e33f1da3f1bf54db8ec103a4d387b1bfac3162062e8b1074ad"
+    },
+    "mkvtoolnix": {
+      "url": "https://mkvtoolnix.download/macos/releases/104.0/MKVToolNix-104.0-1-universal.dmg",
+      "sha256": "8d01d6a69f70de357687de35e20245cdfcba1c122c88c3aaec4b34fd0bfc7b08"
+    }
+  },
+  "sources": {
+    "ffmpeg": {
+      "url": "https://ffmpeg.org/releases/ffmpeg-9.1.tar.xz",
+      "sha256": "1a4d394ae63d190a526cd052eb4415c156b5c5e2df37efab41a7de0b8fde2433"
+    },
+    "mkvtoolnix": {
+      "url": "https://mkvtoolnix.download/sources/mkvtoolnix-104.0.tar.xz",
+      "sha256": "8f07b39d6cea1aad029f253e0e6e6a54c0e0f3ba91bfc3b2157915630d48a62b"
+    }
+  }
+}

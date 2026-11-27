@@ -1,0 +1,5 @@
+# Exact versions used to build the release installers (Python 3.12).
+numpy==2.5.5
+pyinstaller==6.22.3
+pillow==13.0.0
+pytest==9.2.0
