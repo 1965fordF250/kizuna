@@ -14,6 +14,8 @@ up to the picture. Free, open source, for Windows and Mac.
 
 https://github.com/user-attachments/assets/acac6945-80dc-4507-914a-b493ffed3152
 
+**[▶ Watch in 4K on YouTube](https://youtu.be/uRlEM6GNfow)**
+
 - **Simple:** two folders, tick Video, Audio and Subtitles by language, press Merge.
 - **Syncs automatically, even when the releases are cut differently.** Streaming intros and
   credits, or small gaps at scene breaks, are found and corrected section by section.
